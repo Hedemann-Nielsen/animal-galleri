@@ -23,35 +23,66 @@ function initApp() {
 
 function createLoadingScreen() {
     // byg loading screen her med html dom elementer. og evt et animeret gif eller billede. i vores app tag.
+       const loader = document.querySelector(".loader");
 
+        myApp.classList.add("loader-hidden");
+        loader.addEventListener("transitionend", () => {
+            document.body.removeChild("loader");
+});
 }
+
 
 
 function initGallery(dataRecived) {
     // kaldes fra fetchData når data er klar. 
     // set myData variablen til det modtagne data, så det er tilgængelig for alle funktioner
+    myData = dataRecived;
     //kald funktionen resetGallery for at slette indhold i app tagget, som er indeholdt i myApp.
+    resetGallery();
     // kald en funktion der kan bygge dit galleri. den hedder buildGallery
+    buildGallery();
 
 }
 
 
 function resetGallery() {
     // skriv kode her der kan slette alt html i app tagget husk det er indeholdt i  myApp
-
+    myApp.innerHTML = "";
 }
 
 function buildGallery() {
-
-    /* brug map funktionen paa vores myData for at finde data for hvert enkelt dyr, og sende det til en funktion der
-    kan bygge dit galleri kort for dyret. funktionen hedder buildCard, og har brugfor data for dyret*/
+const animailCards = myData.map(animalData => buildCard(animalData));
+animailCards.array.forEach(card => {
+    myApp.appendchild(card);
+});
+    //kan bygge dit galleri kort for dyret. funktionen hedder buildCard, og har brugfor data for dyret*/
+buildCard();
 }
 
 function buildCard(myAnimalData) {
     /* skriv kode der kan vise data fra myAnimalData i DOM
     husk at bruge createElement og appendChild funktionerne til at bygge semantisk korrekt HTML (se evt codelab om dom elementer opgave 4)
     */
+const card = document.createElement("div");
+card.classList.add("galleryCard");
+galleryCard
 
+const nameElement = document.createElement("h2");
+nameElement.textcontent = myData.name;
+
+const imageElement = document.createElement("img");
+imageElement.src = myAnimalData.picture;
+imageElement.alt = myAnimalData.name;
+
+    const descriptionElement = document.createElement("p");
+    descriptionElement.textContent = myAnimalData.shortDescription;
+
+    // Legg til de opprettede elementene til kortet
+    card.appendChild(nameElement);
+    card.appendChild(imageElement);
+    card.appendChild(descriptionElement);
+
+return card;
 
 }
 
