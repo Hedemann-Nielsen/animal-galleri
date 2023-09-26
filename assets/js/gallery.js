@@ -40,26 +40,42 @@ animalCards.forEach(card => {
     //kan bygge dit galleri kort for dyret. funktionen hedder buildCard, og har brugfor data for dyret*/
 buildCard();
 }
+function buildBig(imageElement) {
+    resetGallery();
+    let newArticle = document.createElement('article');
+    let newImg = document.createElement('img');
+    newImg.src = imageElement.src;
+    newImg.alt = imageElement.alt;
+    newArticle.appendChild(newImg);
+    myApp.appendChild(newArticle);
+}
 function buildCard(myAnimalData) {
     /* skriv kode der kan vise data fra myAnimalData i DOM
     husk at bruge createElement og appendChild funktionerne til at bygge semantisk korrekt HTML (se evt codelab om dom elementer opgave 4)
     */
-const card = document.createElement("div");
-card.classList.add("galleryCard");
-const nameElement = document.createElement("h2");
-nameElement.textContent = myAnimalData.name;
-console.log(myData[0]);
-const imageElement = document.createElement("img");
-imageElement.src = myAnimalData.picture;
-imageElement.alt = myAnimalData.name;
+    const card = document.createElement("article");
+    card.classList.add("galleryCard");
+    const nameElement = document.createElement("h2");
+    nameElement.textContent = myAnimalData.name;
+    console.log(myData[0]);
+    const imageElement = document.createElement("img");
+    imageElement.src = myAnimalData.picture;
+    imageElement.alt = myAnimalData.name;
     const descriptionElement = document.createElement("p");
     descriptionElement.textContent = myAnimalData.shortDescription;
-    // Legg til de opprettede elementene til kortet
     card.appendChild(nameElement);
     card.appendChild(imageElement);
     card.appendChild(descriptionElement);
-return card;
+
+    imageElement.addEventListener('click', function() {
+        buildBig(imageElement);
+    });
+
+    return card;
 }
+
+
+
 /*  get data function  DO NOT TOUCH!!!!! ......................................................
 denne funktion vil typisk være en funktion der henter data fra et API
 */

@@ -63,6 +63,7 @@ header p {
 .galleryCard img {
   max-width: 375px;
   max-height: 500px;
+  cursor: pointer;
 }
 
 .galleryCard h2 {
