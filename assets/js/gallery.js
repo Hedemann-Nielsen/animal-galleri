@@ -78,16 +78,21 @@ function buildBig(imageElement) {
     const cardBig = document.createElement("article");
     cardBig.classList.add("detailView");
 
-    let newImg = document.createElement('img');
+    let bigImg = document.createElement("img");
     let longDescriptionElement = document.createElement("p");
-    longDescriptionElement.textContent = myAnimalData.description;
-
-    newImg.src = imageElement.src;
-    // newImg.alt = imageElement.alt;
-    cardBig.appendChild(newImg);
+    
+    bigImg.src = imageElement.src;
+    longDescriptionElement.textContent = imageElement.description;
+    // bigImg.alt = imageElement.alt;
+    cardBig.appendChild(bigImg);
     cardBig.appendChild(longDescriptionElement);
 
     myApp.appendChild(cardBig);
+
+
+    bigImg.addEventListener('click', function() {
+        buildGallery(myData);
+    });
 }
 
 function resetGallery() {
