@@ -3,12 +3,12 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ffffff;
-    transition: opacity 0.75s, visibility 0.75s;
+    transition: opacity 4s, visibility 3s;
 
 }
 

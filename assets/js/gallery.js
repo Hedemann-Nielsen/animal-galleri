@@ -3,6 +3,7 @@ const myLoadTime = 2000;
 // reset variables
 let myData = null;
 let myApp = null;
+
 /* kicks off app when the DOM is loaded */
 window.addEventListener("load", initApp);
 function initApp() {
@@ -10,6 +11,10 @@ function initApp() {
     myApp = document.getElementById('app'); // vi finder det tag voress app skal leve i. kaldet app
     createLoadingScreen(); // bygger loading screen i DOM.
 }
+
+
+
+
 function createLoadingScreen() {
     // byg loading screen her med html dom elementer. og evt et animeret gif eller billede. i vores app tag.
         const loader = document.querySelector(".loader");
@@ -19,40 +24,32 @@ function createLoadingScreen() {
  });
  initGallery();
 }
+
+
+
+
 function initGallery(dataReceived) {
-    // kaldes fra fetchData når data er klar. 
-    // set myData variablen til det modtagne data, så det er tilgængelig for alle funktioner
     myData = dataReceived;
-    //kald funktionen resetGallery for at slette indhold i app tagget, som er indeholdt i myApp.
-    resetGallery();
-    // kald en funktion der kan bygge dit galleri. den hedder buildGallery
+
     buildGallery(myData);
 }
-function resetGallery() {
-    // skriv kode her der kan slette alt html i app tagget husk det er indeholdt i  myApp
-    myApp.innerHTML = "";
-}
+
+
+
+
 function buildGallery(myData) {
 const animalCards = myData.map(animalData => buildCard(animalData));
 animalCards.forEach(card => {
     myApp.appendChild(card);
 });
-    //kan bygge dit galleri kort for dyret. funktionen hedder buildCard, og har brugfor data for dyret*/
-buildCard();
+buildCard(myAnimalData);
 }
-function buildBig(imageElement) {
-    resetGallery();
-    let newArticle = document.createElement('article');
-    let newImg = document.createElement('img');
-    newImg.src = imageElement.src;
-    newImg.alt = imageElement.alt;
-    newArticle.appendChild(newImg);
-    myApp.appendChild(newArticle);
-}
+
+
+
 function buildCard(myAnimalData) {
-    /* skriv kode der kan vise data fra myAnimalData i DOM
-    husk at bruge createElement og appendChild funktionerne til at bygge semantisk korrekt HTML (se evt codelab om dom elementer opgave 4)
-    */
+    resetGallery();
+    
     const card = document.createElement("article");
     card.classList.add("galleryCard");
     const nameElement = document.createElement("h2");
@@ -66,15 +63,37 @@ function buildCard(myAnimalData) {
     card.appendChild(nameElement);
     card.appendChild(imageElement);
     card.appendChild(descriptionElement);
-
+    
     imageElement.addEventListener('click', function() {
         buildBig(imageElement);
     });
-
+    
     return card;
 }
 
 
+
+function buildBig(imageElement) {
+    resetGallery();
+    const cardBig = document.createElement("article");
+    cardBig.classList.add("detailView");
+
+    let newImg = document.createElement('img');
+    let longDescriptionElement = document.createElement("p");
+    longDescriptionElement.textContent = myAnimalData.description;
+
+    newImg.src = imageElement.src;
+    // newImg.alt = imageElement.alt;
+    cardBig.appendChild(newImg);
+    cardBig.appendChild(longDescriptionElement);
+
+    myApp.appendChild(cardBig);
+}
+
+function resetGallery() {
+    // skriv kode her der kan slette alt html i app tagget husk det er indeholdt i  myApp
+    myApp.innerHTML = "";
+}
 
 /*  get data function  DO NOT TOUCH!!!!! ......................................................
 denne funktion vil typisk være en funktion der henter data fra et API
